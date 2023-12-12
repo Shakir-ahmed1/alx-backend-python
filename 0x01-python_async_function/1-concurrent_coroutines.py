@@ -9,6 +9,10 @@ async def wait_n(n: int, max_delay: int) -> List[float]:
     result = []
     for a in range(n):
         temp = await wait_random(max_delay)
-        result.append(temp)
-    result.sort()
+        if not result:
+            result.append(temp)
+        for b in range(len(result)):
+            if result[b] > temp:
+                result.insert(b, temp)
+                break
     return result
