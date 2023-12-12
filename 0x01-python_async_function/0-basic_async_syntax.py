@@ -7,5 +7,5 @@ from random import uniform
 async def wait_random(max_delay: int = 10) -> float:
     """ for random length interval sleeping function """
     a = uniform(0, max_delay)
-    await asycio.sleep(a)
+    await asyncio.sleep(a)
     return a
