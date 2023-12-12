@@ -2,10 +2,10 @@
 """ a module that sleeps for a given max_daly"""
 import asyncio
 from random import uniform
-
+from time import sleep
 
 async def wait_random(max_delay=10):
     """ for random length interval sleeping function """
     a = uniform(0, max_delay)
-    await asyncio.sleep(a)
+    sleep(a)
     return a
