@@ -21,13 +21,14 @@ class TestAccessNestedMap(unittest.TestCase):
     @parameterized.expand(
             [
                 ({}, ("a",)),
-                ({"a": 1}, ("a","b")),
+                ({"a": 1}, ("a", "b")),
             ]
     )
     def test_access_nested_map_exception(self, nasted_map, path):
         """ a test method """
         with self.assertRaises(KeyError):
             access_nested_map(nasted_map, path)
+
 
 if __name__ == "__main__":
     unittest.main()
