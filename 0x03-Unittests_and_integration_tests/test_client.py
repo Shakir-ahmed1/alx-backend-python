@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """ client module testing module """
 import unittest
-from urllib import response
 from parameterized import parameterized, parameterized_class
 from unittest import mock
 from unittest.mock import patch, Mock, PropertyMock
@@ -21,6 +20,14 @@ class TestGithubOrgClient(unittest.TestCase):
         cli = GithubOrgClient(client_name)
         cli.org()
         get_mock.assert_called_once_with(org)
+
+    @patch("client.GithubOrgClient.org", new_callable=PropertyMock,
+           return_value={"repos_url": "abcde"})
+    def test_public_repos_url(self, mock_get):
+        """ test the _public_repos_url """
+        cli = GithubOrgClient("any")
+        result = cli._public_repos_url
+        self.assertEqual(result, "abcde")
 
 
 if __name__ == "__main__":
