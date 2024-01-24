@@ -14,7 +14,7 @@ class TestAccessNestedMap(unittest.TestCase):
                 ({"a": {"b": 2}}, ("a", "b"), 2)
             ]
     )
-    def test_access_nasted_map(self, nasted_map, path, expected):
+    def test_access_nested_map(self, nasted_map, path, expected):
         """ a test method """
         self.assertEqual(access_nested_map(nasted_map, path), expected)
 
