@@ -29,6 +29,16 @@ class TestGithubOrgClient(unittest.TestCase):
         result = cli._public_repos_url
         self.assertEqual(result, "abcde")
 
+    @patch("client.get_json",
+           return_value=[{"name": "a", "license": {"key": "yes"}}])
+    def test_public_repos(self, mock_get):
+        """ test public_repos method"""
+        with patch("client.GithubOrgClient._public_repos_url",
+                   return_value="a1"):
+            cli = GithubOrgClient("abcd")
+            result = cli.public_repos("yes")
+            self.assertEqual(result, ["a"])
+
 
 if __name__ == "__main__":
     unittest.main()
