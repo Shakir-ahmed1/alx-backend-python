@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """ testing case for acces_nasted_map in utils """
-from utils import access_nested_map, get_json
+from utils import access_nested_map, get_json, memoize
 import unittest
 from unittest.mock import Mock, patch
 from parameterized import parameterized
@@ -44,6 +44,25 @@ class TestGetJson(unittest.TestCase):
             data = get_json(test_url)
             get_mock.assert_called_with(test_url)
             self.assertEqual(data, test_payload)
+
+
+class TestMemoize(unittest.TestCase):
+    """ tests the momoize function """
+    def test_memoize(self):
+        """ testing for memoize decorator """
+        class TestClass:
+
+            def a_method(self):
+                return 42
+
+            @memoize
+            def a_property(self):
+                return self.a_method()
+        with patch.object(TestClass, 'a_method') as get_mock:
+            a = TestClass()
+            a.a_property
+            a.a_property
+            get_mock.assert_called_once()
 
 
 if __name__ == "__main__":
