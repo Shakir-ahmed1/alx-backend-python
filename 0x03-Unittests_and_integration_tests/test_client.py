@@ -7,6 +7,7 @@ from unittest.mock import patch, Mock, PropertyMock
 from client import GithubOrgClient
 from fixitures import TEST_PAYLOAD
 
+
 class TestGithubOrgClient(unittest.TestCase):
     """ self descriptive """
     @parameterized.expand([
@@ -48,11 +49,14 @@ class TestGithubOrgClient(unittest.TestCase):
         self.assertEqual(GithubOrgClient.has_license(repo, license), expected)
 
 
-@parameterized_class((org_payload, repos_payload, expected_repos, apache2_repos),TEST_PAYLOAD)
+@parameterized_class((org_payload, repos_payload,
+                      expected_repos, apache2_repos),
+                     TEST_PAYLOAD)
 class TestIntegrationGithubOrgClient(unittest.TestCase):
     """ integration test for GithubOrgClient """
     @classmethod
     def setUpClass(cls):
+        """ set up the test"""
         cls.get_patcher = patch('requests.get', side_effect=[
             cls.org_payload, cls.repos_payload
         ])
@@ -60,6 +64,7 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
+        """ tear down the class"""
         cls.get_patcher.stop()
 
     def test_public_repos(self):
@@ -67,6 +72,7 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
 
     def test_public_repos_with_license(self):
         """test public with license"""
+
 
 if __name__ == "__main__":
     unittest.main()
