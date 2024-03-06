@@ -51,13 +51,22 @@ class TestGithubOrgClient(unittest.TestCase):
 @parameterized_class((org_payload, repos_payload, expected_repos, apache2_repos),TEST_PAYLOAD)
 class TestIntegrationGithubOrgClient(unittest.TestCase):
     """ integration test for GithubOrgClient """
-    def setUpClass():
-        """ a class setUp"""
-        with patch("utils.requests.get")
+    @classmethod
+    def setUpClass(cls):
+        cls.get_patcher = patch('requests.get', side_effect=[
+            cls.org_payload, cls.repos_payload
+        ])
+        cls.mocked_get = cls.get_patcher.start()
 
+    @classmethod
+    def tearDownClass(cls):
+        cls.get_patcher.stop()
 
-    def terDownClass():
-        """ a class TearDown """
+    def test_public_repos(self):
+        """test public repos """
+
+    def test_public_repos_with_license(self):
+        """test public with license"""
 
 if __name__ == "__main__":
     unittest.main()
